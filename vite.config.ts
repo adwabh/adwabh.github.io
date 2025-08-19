@@ -13,4 +13,26 @@ export default defineConfig({
     // Ensure proper client entry for SSG
     noExternal: ['vite-react-ssg'],
   },
+  build: {
+    // Ensure proper asset handling
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        // Ensure JavaScript files have .js extension
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name?.split('.') || [];
+          const ext = info[info.length - 1];
+          if (/\.(css)$/.test(assetInfo.name || '')) {
+            return `assets/[name]-[hash].${ext}`;
+          }
+          if (/\.(js)$/.test(assetInfo.name || '')) {
+            return `assets/[name]-[hash].js`;
+          }
+          return `assets/[name]-[hash].[ext]`;
+        },
+      },
+    },
+  },
 });
