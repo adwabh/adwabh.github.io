@@ -1,0 +1,39 @@
+# Set proper MIME types for JavaScript and CSS files
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+    AddType font/ttf .ttf
+    AddType font/eot .eot
+    AddType image/svg+xml .svg
+</IfModule>
+
+# Force JavaScript files to be served as application/javascript
+<FilesMatch "\.js$">
+    ForceType application/javascript
+</FilesMatch>
+
+# Force CSS files to be served as text/css
+<FilesMatch "\.css$">
+    ForceType text/css
+</FilesMatch>
+
+# Enable CORS for assets
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css|woff2|woff|ttf|eot|svg)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/eot "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>
