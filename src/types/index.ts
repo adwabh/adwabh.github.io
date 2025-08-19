@@ -33,3 +33,15 @@ export interface ContactFormData {
   subject: string;
   message: string;
 }
+
+export interface ContactInfo {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+}
+
+export interface SocialLink {
+  icon: React.ElementType;
+  href: string;
+  label: string;
+}

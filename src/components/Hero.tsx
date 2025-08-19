@@ -1,27 +1,14 @@
 import React from 'react';
-import { FiLinkedin, FiGithub, FiDownload } from 'react-icons/fi';
-import { SiMedium, SiDevdotto } from 'react-icons/si';
+import { FiDownload } from 'react-icons/fi';
 import { useTypingAnimation } from '../hooks/useTypingAnimation';
 import { useTheme } from '../hooks/useTheme';
 import AnimatedBackground from './AnimatedBackground';
+import { designations, socialLinks, resumeLink } from '../data/portfolio';
 
 const Hero: React.FC = () => {
   const { isDark } = useTheme();
-  const designations = [
-    'Engineering Leader',
-    'Backend Developer', 
-    'Android Developer',
-    'Technical Architect'
-  ];
 
   const { currentText, showCursor } = useTypingAnimation(designations);
-
-  const socialLinks = [
-    { icon: FiLinkedin, href: 'https://linkedin.com/in/adwaitabhyankar', label: 'LinkedIn' },
-    { icon: FiGithub, href: 'https://github.com/adwaitabhyankar', label: 'GitHub' },
-    { icon: SiMedium, href: 'https://medium.com/@adwaitabhyankar', label: 'Medium' },
-    { icon: SiDevdotto, href: 'https://dev.to/adwaitabhyankar', label: 'Dev.to' }
-  ];
 
   const handleGetInTouch = () => {
     const element = document.querySelector('#contact');
@@ -31,7 +18,7 @@ const Hero: React.FC = () => {
   const handleDownloadResume = () => {
     // Create a dummy resume download
     const link = document.createElement('a');
-    link.href = '#';
+    link.href = resumeLink;
     link.download = 'Adwait_Abhyankar_Resume.pdf';
     link.click();
   };

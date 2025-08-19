@@ -11,6 +11,7 @@ interface ContactModalProps {
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   
   const {
     register,
@@ -21,20 +22,48 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
+    setSubmitError(null);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    console.log('Form submitted:', data);
-    setIsSubmitted(true);
-    setIsSubmitting(false);
-    
-    // Reset form after 2 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      reset();
-      onClose();
-    }, 2000);
+    try {
+      // Option 2: Formspree
+      const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID;
+
+      if (!formspreeId) {
+        throw new Error('Formspree form ID not configured');
+      }
+      
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          reset();
+          onClose();
+        }, 3000);
+      } else {
+        throw new Error('Failed to send message');
+      }
+      
+    } catch (error) {
+      setSubmitError('Failed to send message. Please try again.');
+      console.error('Formspree Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -71,6 +100,15 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Error Message */}
+              {submitError && (
+                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                  <p className="text-sm text-red-600 dark:text-red-400">
+                    {submitError}
+                  </p>
+                </div>
+              )}
+
               {/* Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

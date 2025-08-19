@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiExternalLink, FiCalendar, FiClock } from 'react-icons/fi';
 import { SiMedium, SiDevdotto } from 'react-icons/si';
-import { blogPosts } from '../data/portfolio';
+import { blogPosts, socialLinks } from '../data/portfolio';
 
 const Blog: React.FC = () => {
   const getPlatformIcon = (platform: string) => {
@@ -78,7 +78,7 @@ const Blog: React.FC = () => {
           
           <div className="text-center mt-12">
             <a
-              href="https://medium.com/@adwaitabhyankar"
+              href={socialLinks.find(link => link.label === 'Medium')?.href || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"

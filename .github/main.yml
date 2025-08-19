@@ -1,0 +1,65 @@
+name: Update Medium Articles
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # every day at 6 AM UTC
+  workflow_dispatch:       # manual trigger
+
+env:
+  MEDIUM_USERNAME: avabhyankar22   # 👈 set your Medium username here
+
+jobs:
+  update-medium:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install feedparser beautifulsoup4 lxml
+
+      - name: Fetch & Parse Medium RSS
+        run: |
+          python <<'EOF'
+          import feedparser
+          from bs4 import BeautifulSoup
+          import os, json
+
+          username = os.getenv("MEDIUM_USERNAME")
+          feed_url = f"https://medium.com/feed/@{username}"
+          feed = feedparser.parse(feed_url)
+
+          articles = []
+          for entry in feed.entries:
+              soup = BeautifulSoup(entry.get("content", [{}])[0].get("value", ""), "lxml")
+              img = soup.find("img")["src"] if soup.find("img") else None
+              desc = soup.find("p").get_text() if soup.find("p") else ""
+
+              articles.append({
+                  "title": entry.title,
+                  "link": entry.link,
+                  "pubDate": entry.published,
+                  "description": desc,
+                  "image": img
+              })
+
+          os.makedirs("public", exist_ok=True)
+          with open("public/medium-articles.json", "w") as f:
+              json.dump(articles, f, indent=2)
+          EOF
+
+      - name: Commit & Push changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/medium-articles.json
+          git commit -m "Update Medium articles JSON" || echo "No changes"
+          git push

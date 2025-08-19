@@ -1,30 +1,18 @@
 import React, { useState } from 'react';
-import { FiMail, FiPhone, FiMapPin, FiLinkedin, FiGithub, FiDownload } from 'react-icons/fi';
-import { SiMedium, SiDevdotto } from 'react-icons/si';
+import { FiDownload } from 'react-icons/fi';
 import ContactModal from './ContactModal';
 import { useTheme } from '../hooks/useTheme';
 import AnimatedBackground from './AnimatedBackground';
+import { contactInfo, socialLinks, resumeLink } from '../data/portfolio';
 
 const Contact: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isDark } = useTheme();
 
-  const socialLinks = [
-    { icon: FiLinkedin, href: 'https://linkedin.com/in/adwaitabhyankar', label: 'LinkedIn' },
-    { icon: FiGithub, href: 'https://github.com/adwaitabhyankar', label: 'GitHub' },
-    { icon: SiMedium, href: 'https://medium.com/@adwaitabhyankar', label: 'Medium' },
-    { icon: SiDevdotto, href: 'https://dev.to/adwaitabhyankar', label: 'Dev.to' }
-  ];
-
-  const contactInfo = [
-    { icon: FiMail, label: 'Email', value: 'adwabh@gmail.com' },
-    { icon: FiPhone, label: 'Phone', value: '+91 9167385309' },
-    { icon: FiMapPin, label: 'Location', value: 'Pune, MH' }
-  ];
-
   const handleDownloadResume = () => {
+    // Create a dummy resume download
     const link = document.createElement('a');
-    link.href = '#';
+    link.href = resumeLink;
     link.download = 'Adwait_Abhyankar_Resume.pdf';
     link.click();
   };
