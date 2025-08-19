@@ -5,8 +5,7 @@ import type { RouteRecord } from 'vite-react-ssg';
 export const routes: RouteRecord[] = [
   {
     path: '/',
-    element: <Layout />,
-    entry: 'src/Layout.tsx',
+    Component: Layout,
     children: [
       {
         path: 'a',
