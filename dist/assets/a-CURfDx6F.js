@@ -1,0 +1,1 @@
+import{j as t}from"./app-Beeh34Kb.js";const a=()=>t.jsxs("section",{className:"container mx-auto px-4 py-16",children:[t.jsx("h1",{className:"text-3xl font-bold text-gray-900 dark:text-white mb-4",children:"Page A"}),t.jsx("p",{className:"text-gray-600 dark:text-gray-300",children:"This is a lazily loaded route."})]});export{a as default};
