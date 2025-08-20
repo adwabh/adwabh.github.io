@@ -1,0 +1,53 @@
+{
+  "_client-9EKkFB6a.js": {
+    "file": "assets/client-9EKkFB6a.js",
+    "name": "client",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "index.html": {
+    "file": "assets/app-Beeh34Kb.js",
+    "name": "app",
+    "src": "index.html",
+    "isEntry": true,
+    "dynamicImports": [
+      "_client-9EKkFB6a.js",
+      "_client-9EKkFB6a.js",
+      "src/pages/a.tsx",
+      "src/pages/index.tsx",
+      "src/pages/nest/[b].tsx"
+    ],
+    "css": [
+      "assets/app-BxcnhS-4.css"
+    ]
+  },
+  "src/pages/a.tsx": {
+    "file": "assets/a-CURfDx6F.js",
+    "name": "a",
+    "src": "src/pages/a.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "src/pages/index.tsx": {
+    "file": "assets/index-DMM7_Hwl.js",
+    "name": "index",
+    "src": "src/pages/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "src/pages/nest/[b].tsx": {
+    "file": "assets/_b_-C98o7JmY.js",
+    "name": "_b_",
+    "src": "src/pages/nest/[b].tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  }
+}
