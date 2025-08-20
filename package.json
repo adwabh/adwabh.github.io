@@ -3,9 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://adwabh.github.io/",
   "scripts": {
     "dev": "vite-react-ssg dev",
     "build": "vite-react-ssg build",
+    "predeploy": "vite-react-ssg build",
+    "deploy" : "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -26,6 +29,7 @@
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
+    "gh-pages": "^6.3.0",
     "globals": "^15.9.0",
     "postcss": "^8.4.35",
     "react-router-dom": "^6.30.1",
