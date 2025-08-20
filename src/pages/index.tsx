@@ -13,9 +13,9 @@ const HomePage: React.FC = () => {
       <Hero />
       <About />
       <Skills />
-      <Experience />
       <Projects />
       <Blog />
+      <Experience />
       <Contact />
     </>
   );
