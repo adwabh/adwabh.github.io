@@ -6,6 +6,7 @@
   "homepage": "https://adwabh.github.io/",
   "scripts": {
     "dev": "vite-react-ssg dev",
+    "build-ssg": "vite-react-ssg build",
     "build": "vite build",
     "predeploy": "vite-react-ssg build",
     "deploy" : "gh-pages -d dist",
